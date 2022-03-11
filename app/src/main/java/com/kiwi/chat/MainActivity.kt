@@ -9,50 +9,44 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.content.Intent
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import com.kiwi.chat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+    companion object {
+        val TAG = MainActivity::class.java.simpleName
+    }
+    lateinit var binding: ActivityMainBinding
+    val personResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){  result->
+        Log.d(TAG, "back from LoginActivity with data?")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //button function
+        setupFunctions()
+    }
 
-        setSupportActionBar(binding.toolbar)
+    private fun setupFunctions() {
+        binding.bPerson.setOnClickListener(){
+            personResultLauncher.launch(
+                Intent(this, LoginActivity::class.java)
+            )
+        }
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.bHome.setOnClickListener(){
 
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        }
+
+        binding.bSearch.setOnClickListener(){
+
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
-    }
 }
