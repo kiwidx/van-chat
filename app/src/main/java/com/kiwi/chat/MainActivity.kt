@@ -15,13 +15,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.kiwi.chat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        val TAG = MainActivity::class.java.simpleName
-    }
-    lateinit var binding: ActivityMainBinding
+
+    private val TAG = MainActivity::class.java.simpleName
+    private lateinit var binding: ActivityMainBinding
     val personResultLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()){  result->
         Log.d(TAG, "back from LoginActivity with data?")
+    }
+
+    val homeResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){  result->
+        Log.d(TAG, "back from homeActivity with data?")
+    }
+
+    val searchResultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){  result->
+        Log.d(TAG, "back from searchActivity with data?")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +39,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         //button function
+
         setupFunctions()
+
     }
 
     private fun setupFunctions() {
@@ -41,11 +52,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.bHome.setOnClickListener(){
-
+            homeResultLauncher.launch(
+                Intent(this, MainActivity::class.java)
+            )
         }
 
         binding.bSearch.setOnClickListener(){
-
+            searchResultLauncher.launch(
+                Intent(this, SearchActivity::class.java)
+            )
         }
     }
 

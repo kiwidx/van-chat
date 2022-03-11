@@ -2,8 +2,11 @@
     <string name="app_name">chat</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="LoginFragment">LoginFragment</string>
+    <string name="SignUpnFragment">SignUpFragment</string>
+    <string name="RoomFragment">RoomFragment</string>
+    <string name="SearchFragment">SearchFragment</string>
+    <string name="PickFragment">PickFragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
@@ -20,5 +23,7 @@
     <string name="home">首頁</string>
     <string name="person">個人</string>
     <string name="search">搜尋</string>
+    <string name="ed_search">搜尋</string>
+
 
 </resources>
