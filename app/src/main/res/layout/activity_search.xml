@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="@string/ed_search"
+        android:hint="ed_search"
         android:inputType="textPersonName"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"

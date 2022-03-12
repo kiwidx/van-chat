@@ -21,7 +21,7 @@
         android:id="@+id/b_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/home"
+        android:text="home"
         app:layout_constraintEnd_toStartOf="@+id/b_search"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/b_search"
@@ -31,7 +31,7 @@
         android:id="@+id/b_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/person"
+        android:text="person"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/b_search"
         app:layout_constraintTop_toTopOf="@+id/b_search" />
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
-        android:text="@string/search"
+        android:text="search"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

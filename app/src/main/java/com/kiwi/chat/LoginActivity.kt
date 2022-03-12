@@ -60,14 +60,14 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         signUp()
         Log.d(TAG, "signUp: yes")
-       binding.sign.setOnClickListener(){
-            signUpResultLauncher.launch(
-               Intent(this, SignUpActivity::class.java)
-            )
-       }
+
     }
     private fun signUp(){
-
+        binding.bSignup.setOnClickListener(){
+            signUpResultLauncher.launch(
+                Intent(this, SignUpActivity::class.java)
+            )
+        }
     }
 
 }
