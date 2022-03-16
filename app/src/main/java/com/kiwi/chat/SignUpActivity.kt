@@ -1,5 +1,6 @@
 package com.kiwi.chat
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,9 +14,8 @@ import com.kiwi.chat.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
 
-    companion object{
-        private val TAG = ActivitySignUpBinding::class.java.simpleName
-    }
+    private val TAG = ActivitySignUpBinding::class.java.simpleName
+
     lateinit var binding: ActivitySignUpBinding
     var signup_state: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,19 +23,23 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.d(TAG, "onCreate: signup")
+
+        signup()
+    }
+    fun signup(){
         binding.bCheckSignup.setOnClickListener(){
+            val dataID = Intent()
             var supname = binding.edUsernameSignup.text.toString()
             var suppass = binding.edPasswordSignup.text.toString()
             val checkedId = CheckNum(supname)
             val checkedPass = CheckNum(suppass)
-
             var errormeg: String = ""
             errormeg = when{
                 checkedId.userId() == CheckNum.NumSignState.TOOLONG -> "Id is too long."
                 checkedId.userId() == CheckNum.NumSignState.TOOSHORT -> "Id is too short."
                 checkedPass.userPass() == CheckNum.NumSignState.TOOLONG -> "Password is too long."
                 checkedPass.userPass() == CheckNum.NumSignState.TOOSHORT -> "Password is too short."
-                ((checkedId.userId() == CheckNum.NumSignState.OK) && (checkedPass.userPass() == CheckNum.NumSignState.OK))->"Sign up Success"
+//                ((checkedId.userId() == CheckNum.NumSignState.OK) && (checkedPass.userPass() == CheckNum.NumSignState.OK))->"Sign up Success  $supname and $suppass "
                 else -> "Wrong"
             }
             if (errormeg == "OK"){
@@ -48,7 +52,9 @@ class SignUpActivity : AppCompatActivity() {
                     .setPositiveButton("Ok", null)
                     .show()
             }
+            dataID.putExtra(Extras.ID, supname)
+            setResult(RESULT_OK, dataID)
+            finish()
         }
-
     }
 }

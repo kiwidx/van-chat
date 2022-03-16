@@ -5,6 +5,7 @@ class CheckNum (val numSign: String){
         OK, TOOSHORT, TOOLONG, ERROR
     }
     var state = NumSignState.ERROR
+    //MutableList can be modified
     val checkList = ('a'..'z').toMutableList() + ('A'..'Z').toMutableList() + ('0'..'9').toMutableList()
     fun userId(): NumSignState{
         when {
