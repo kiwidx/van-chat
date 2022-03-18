@@ -4,19 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.kiwi.chat.databinding.ActivitySignUpBinding
 
 class SignUpActivity : AppCompatActivity() {
 
     private val TAG = ActivitySignUpBinding::class.java.simpleName
+    private lateinit var binding: ActivitySignUpBinding
 
-    lateinit var binding: ActivitySignUpBinding
+
     var signup_state: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,26 +21,26 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         Log.d(TAG, "onCreate: signup")
 
-        signup()
     }
-    fun signup(){
-        binding.bCheckSignup.setOnClickListener(){
-            val dataID = Intent()
-            var supname = binding.edUsernameSignup.text.toString()
-            var suppass = binding.edPasswordSignup.text.toString()
-            val checkedId = CheckNum(supname)
-            val checkedPass = CheckNum(suppass)
-            var errormeg: String = ""
+    fun signup(view: View){
+        var supname = binding.edSignname.text.toString()
+        var suppass = binding.edSignpass.text.toString()
+        val checkedId = CheckNum(supname)
+        val checkedPass = CheckNum(suppass)
+        var errormeg: String = ""
+        binding.bSend.setOnClickListener(){
             errormeg = when{
                 checkedId.userId() == CheckNum.NumSignState.TOOLONG -> "Id is too long."
                 checkedId.userId() == CheckNum.NumSignState.TOOSHORT -> "Id is too short."
                 checkedPass.userPass() == CheckNum.NumSignState.TOOLONG -> "Password is too long."
                 checkedPass.userPass() == CheckNum.NumSignState.TOOSHORT -> "Password is too short."
-//                ((checkedId.userId() == CheckNum.NumSignState.OK) && (checkedPass.userPass() == CheckNum.NumSignState.OK))->"Sign up Success  $supname and $suppass "
-                else -> "Wrong"
+                else -> "OK"
             }
             if (errormeg == "OK"){
                 signup_state = true
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.putExtra("username", checkedId.userId())
+                startActivity(intent)
                 Log.d(TAG, "SignUp: success")
             }else{
                 AlertDialog.Builder(this)
@@ -52,8 +49,6 @@ class SignUpActivity : AppCompatActivity() {
                     .setPositiveButton("Ok", null)
                     .show()
             }
-            dataID.putExtra(Extras.ID, supname)
-            setResult(RESULT_OK, dataID)
             finish()
         }
     }

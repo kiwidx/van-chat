@@ -10,5 +10,10 @@
     <item
         android:id="@+id/action_logout"
         android:title="@string/logout"
+        tools:icon="@drawable/logout" />
+    <item
+        android:id="@+id/action_signup"
+        android:title="signup"
+        app:actionProviderClass="androidx.mediarouter.app.MediaRouteActionProvider"
         tools:icon="@drawable/mr_button_light" />
 </menu>

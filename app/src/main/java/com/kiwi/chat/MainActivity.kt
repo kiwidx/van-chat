@@ -17,51 +17,44 @@ import com.kiwi.chat.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
+    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
-    val personResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){  result->
-        Log.d(TAG, "back from LoginActivity with data?")
-    }
-
-    val homeResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){  result->
-        Log.d(TAG, "back from homeActivity with data?")
-    }
-
-    val searchResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){  result->
-        Log.d(TAG, "back from searchActivity with data?")
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //button function
-
-        setupFunctions()
 
     }
 
-    private fun setupFunctions() {
-        binding.bPerson.setOnClickListener(){
-            personResultLauncher.launch(
-                Intent(this, LoginActivity::class.java)
-            )
-        }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
 
-        binding.bHome.setOnClickListener(){
-            homeResultLauncher.launch(
-                Intent(this, MainActivity::class.java)
-            )
-        }
-
-        binding.bSearch.setOnClickListener(){
-            searchResultLauncher.launch(
-                Intent(this, SearchActivity::class.java)
-            )
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        return when (item.itemId) {
+            R.id.action_settings -> true
+            R.id.action_logout -> {
+                //logout stuff
+                true
+            }
+            R.id.action_signup -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        return navController.navigateUp(appBarConfiguration)
+                || super.onSupportNavigateUp()
+    }
+
 
 }
